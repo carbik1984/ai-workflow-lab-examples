@@ -1,0 +1,9 @@
+{
+  "orderId": "HP-1002",
+  "date": "2026-11-05",
+  "customer": "Lucas Brown",
+  "email": "lucas.brown@example.com",
+  "product": "Cat scratching post",
+  "quantity": 1,
+  "price": 24.50
+}

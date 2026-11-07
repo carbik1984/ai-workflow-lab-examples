@@ -1,6 +1,6 @@
 # n8n Course #1 – Install n8n Locally on Windows with Docker
 
-Video: *(link coming soon)*
+Video: https://youtu.be/4ypMJiehihs
 
 ## Steps
 

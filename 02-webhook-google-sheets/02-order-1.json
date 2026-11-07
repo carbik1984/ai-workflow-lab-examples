@@ -1,0 +1,9 @@
+{
+  "orderId": "HP-1001",
+  "date": "2026-11-05",
+  "customer": "Emma Johnson",
+  "email": "emma.johnson@example.com",
+  "product": "Grain-free dog food 12 kg",
+  "quantity": 2,
+  "price": 39.90
+}
