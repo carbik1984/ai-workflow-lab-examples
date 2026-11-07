@@ -1,6 +1,6 @@
 # n8n Course #2 – Webhook to Google Sheets: Save Orders Automatically
 
-Video: *(link coming soon)*
+Video: https://youtu.be/mzVNK8-E-mU
 
 A new order comes in through a **webhook**, and n8n saves it to **Google Sheets** as a new row.
 Our example company is **Hilltop Pets** – a made-up online shop for dogs and cats.
