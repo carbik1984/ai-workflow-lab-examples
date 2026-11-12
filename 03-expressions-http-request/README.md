@@ -1,6 +1,6 @@
 # n8n Course #3 – HTTP Request & Expressions: Call a Free API, Clean Data
 
-Video: *(link coming soon)*
+Video: https://youtu.be/8RzOocJUJ9g
 
 A messy order comes in through a webhook. n8n **cleans** it (extra spaces, capital letters),
 **calculates** the total price, gets today's **exchange rate** from a free API and saves everything
