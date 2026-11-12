@@ -123,4 +123,4 @@ production runs have no icon.
 
 ---
 
-Next: **#3 Expressions** – change the data and calculate the total price before saving.
+Next: [**#3 HTTP Request & Expressions**](../03-expressions-http-request/) – clean the data, calculate the total price and get the exchange rate from a free API.

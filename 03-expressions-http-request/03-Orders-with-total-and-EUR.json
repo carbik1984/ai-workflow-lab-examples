@@ -1,0 +1,286 @@
+{
+  "name": "03 - Orders with total and EUR",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "new-order",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8ab5abce-4943-4641-b9dc-66c92e0ac3e1",
+      "name": "Webhook",
+      "webhookId": "489b7c1c-95aa-4230-a409-ae09334a7b38"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "26f2731e-754f-46e7-968e-0f5ec71a21d9",
+              "name": "orderId",
+              "value": "={{ $json.body.orderId }}",
+              "type": "string"
+            },
+            {
+              "id": "ee74a710-0f99-41e5-b426-1bf64159c6ee",
+              "name": "date",
+              "value": "={{ $json.body.date }}",
+              "type": "string"
+            },
+            {
+              "id": "d195d80f-3f71-4d17-a971-ac388359eb77",
+              "name": "customer",
+              "value": "={{ $json.body.customer.trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "18cfbd01-2674-4a93-83c8-633ec04134ec",
+              "name": "email",
+              "value": "={{ $json.body.email.toLowerCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "17617f9c-53e0-4dd2-b391-866350b4677a",
+              "name": "product",
+              "value": "={{ $json.body.product }}",
+              "type": "string"
+            },
+            {
+              "id": "bdbff821-1d5e-40b0-89e4-db4bef78af5c",
+              "name": "quantity",
+              "value": "={{ $json.body.quantity }}",
+              "type": "number"
+            },
+            {
+              "id": "81dc4c70-068c-4940-8987-2d816939b953",
+              "name": "price",
+              "value": "={{ $json.body.price }}",
+              "type": "number"
+            },
+            {
+              "id": "d5c7e7c4-ac1c-47c2-94ea-18d3539308c0",
+              "name": "total",
+              "value": "={{ Math.round($json.body.quantity * $json.body.price * 100) / 100}}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "7337bc57-8243-4e18-ab04-2192d4a3d183",
+      "name": "Clean order"
+    },
+    {
+      "parameters": {
+        "url": "https://api.frankfurter.dev/v1/latest",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "base",
+              "value": "USD"
+            },
+            {
+              "name": "symbols",
+              "value": "EUR"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        416,
+        0
+      ],
+      "id": "58f93252-91fc-4319-b6f7-8a120459bc61",
+      "name": "Get exchange rate"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "PASTE-YOUR-GOOGLE-SHEET-URL-HERE",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Order ID": "={{ $('Clean order').item.json.orderId }}",
+            "Date": "={{ $('Clean order').item.json.date }}",
+            "Customer": "={{ $('Clean order').item.json.customer }}",
+            "Email": "={{ $('Clean order').item.json.email }}",
+            "Product": "={{ $('Clean order').item.json.product }}",
+            "Quantity": "={{ $('Clean order').item.json.quantity }}",
+            "Price": "={{ $('Clean order').item.json.price }}",
+            "Total": "={{ $('Clean order').item.json.total }}",
+            "Total EUR": "={{Math.round($('Clean order').item.json.total * $json.rates.EUR * 100) / 100}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Order ID",
+              "displayName": "Order ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Customer",
+              "displayName": "Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Product",
+              "displayName": "Product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Quantity",
+              "displayName": "Quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Total EUR",
+              "displayName": "Total EUR",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        0
+      ],
+      "id": "999597a6-b550-4a56-95c8-fdc295485879",
+      "name": "Append row in sheet"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Clean order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean order": {
+      "main": [
+        [
+          {
+            "node": "Get exchange rate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get exchange rate": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  }
+}
