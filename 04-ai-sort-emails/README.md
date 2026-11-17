@@ -1,6 +1,6 @@
 # n8n Course #4 – AI Sorts Customer Emails: Claude + Structured Output
 
-Video: *coming soon*
+Video: https://youtu.be/DdVqJ7SmrNY
 
 New customer emails arrive in Gmail. n8n sends each one to **Claude** (Anthropic), the AI returns a
 **category, urgency, the customer's name and a one-sentence summary** – always in the same shape –

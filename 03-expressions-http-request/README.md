@@ -137,4 +137,4 @@ Result in the sheet – clean name, small letters in the email, total and total 
 
 ---
 
-Next: **#4** – AI reads customer emails and sorts them automatically.
+Next: [**#4 AI Sorts Customer Emails**](../04-ai-sort-emails/) – AI reads customer emails and sorts them automatically.
